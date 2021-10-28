@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useRef, useEffect } from "react";
 
 function App() {
+  const Isobar = (props) => {
+    const canvasRef = useRef(null);
+    useEffect(() => {
+      const canvas = canvasRef.current;
+      let ctx = canvas.getContext("2d");
+      let gradient = ctx.createLinearGradient(20, 0, 220, 0);
+      // Add three color stops
+      gradient.addColorStop(0, "green");
+      gradient.addColorStop(0.5, "cyan");
+      gradient.addColorStop(1, "green");
+
+      // Set the fill style and draw a rectangle
+      ctx.fillStyle = gradient;
+      ctx.fillRect(20, 20, 200, 100);
+    }, []);
+    return <canvas ref={canvasRef} {...props} />;
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="isobar">
+      <Isobar />
     </div>
   );
 }
